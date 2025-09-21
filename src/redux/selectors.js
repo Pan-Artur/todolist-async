@@ -1,0 +1,3 @@
+export const getAllTasks = (state) => state.tasks;
+export const getCompletedTasks = (state) => state.tasks.filter(task => task.completed);
+export const getActiveTasks = (state) => state.tasks.filter(task => !task.completed);
