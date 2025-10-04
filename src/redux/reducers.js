@@ -1,12 +1,13 @@
-import { ADD, REMOVE, TOGGLE } from "./constants";
+import { createReducer } from "@reduxjs/toolkit";
+import { addAction, removeAction, toggleAction } from "./actions";
 
 const initialState = {
   tasks: [],
 };
 
-export const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD:
+export const reducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(addAction, (state, action) => {
       const newTask = {
         id: Date.now(),
         text: action.payload,
@@ -16,12 +17,14 @@ export const reducer = (state = initialState, action) => {
         ...state,
         tasks: [...state.tasks, newTask],
       };
-    case REMOVE:
+    })
+    .addCase(removeAction, (state, action) => {
       return {
         ...state,
         tasks: state.tasks.filter((task) => task.id !== action.payload),
       };
-    case TOGGLE:
+    })
+    .addCase(toggleAction, (state, action) => {
       return {
         ...state,
         tasks: state.tasks.map((task) =>
@@ -30,7 +33,5 @@ export const reducer = (state = initialState, action) => {
             : task
         ),
       };
-    default:
-      return state;
-  }
-};
+    });
+});

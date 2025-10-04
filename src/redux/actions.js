@@ -1,16 +1,9 @@
+import { createAction } from '@reduxjs/toolkit';
 import { ADD, REMOVE, TOGGLE } from './constants';
 
-export const addAction = (task) => ({
-  type: ADD,
-  payload: task
-});
+export const addAction = createAction(ADD);
 
-export const removeAction = (taskId) => ({
-  type: REMOVE,
-  payload: taskId
-});
+export const removeAction = createAction(REMOVE);
 
-export const toggleAction = (taskId) => ({
-  type: TOGGLE,
-  payload: taskId
-});
+export const toggleAction = createAction(TOGGLE);
+
