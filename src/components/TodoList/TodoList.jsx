@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { addAction, removeAction, toggleAction } from '../../redux/actions';
+// import { addAction, removeAction, toggleAction } from '../../redux/actions';
+import { addTask, removeTask, toggleTask } from '../../redux/slice';
 import { getAllTasks } from '../../redux/selectors';
 
 import {
@@ -23,9 +24,30 @@ const TodoList = () => {
   const tasks = useSelector(getAllTasks);
   const dispatch = useDispatch();
 
+  // const handleAddTask = () => {
+  //   if (inputValue.trim()) {
+  //     dispatch(addAction(inputValue));
+  //     setInputValue("");
+  //   }
+  // }
+
+  // const handleKeyPress = (e) => {
+  //   if (e.key === 'Enter') {
+  //     handleAddTask();
+  //   }
+  // };
+
+  // const handleToggleCompleted = (taskId) => {
+  //   dispatch(toggleAction(taskId));
+  // };
+
+  // const handleRemoveTask = (taskId) => {
+  //   dispatch(removeAction(taskId));
+  // };
+
   const handleAddTask = () => {
     if (inputValue.trim()) {
-      dispatch(addAction(inputValue));
+      dispatch(addTask(inputValue));
       setInputValue("");
     }
   }
@@ -37,11 +59,11 @@ const TodoList = () => {
   };
 
   const handleToggleCompleted = (taskId) => {
-    dispatch(toggleAction(taskId));
+    dispatch(toggleTask(taskId));
   };
 
   const handleRemoveTask = (taskId) => {
-    dispatch(removeAction(taskId));
+    dispatch(removeTask(taskId));
   };
 
   const completedCount = tasks.filter(task => task.completed).length;
