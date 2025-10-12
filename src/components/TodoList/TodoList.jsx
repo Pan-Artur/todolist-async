@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 // import { addAction, removeAction, toggleAction } from '../../redux/actions';
-import { addTask, removeTask, toggleTask } from '../../redux/slice';
-import { getAllTasks } from '../../redux/selectors';
+import { addTask, removeTask, toggleTask } from "../../redux/slice";
+import { getAllTasks } from "../../redux/selectors";
 
 import {
   Container,
@@ -16,8 +16,8 @@ import {
   TaskText,
   RemoveButton,
   EmptyState,
-  TaskCount
-} from './styles/TodoList.styled';
+  TaskCount,
+} from "./styles/TodoList.styled";
 
 const TodoList = () => {
   const [inputValue, setInputValue] = useState("");
@@ -50,10 +50,10 @@ const TodoList = () => {
       dispatch(addTask(inputValue));
       setInputValue("");
     }
-  }
+  };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleAddTask();
     }
   };
@@ -66,12 +66,12 @@ const TodoList = () => {
     dispatch(removeTask(taskId));
   };
 
-  const completedCount = tasks.filter(task => task.completed).length;
+  const completedCount = tasks.filter((task) => task.completed).length;
 
   return (
     <Container>
       <Title>Todo List</Title>
-      
+
       <InputContainer>
         <Input
           type="text"
@@ -80,7 +80,11 @@ const TodoList = () => {
           onKeyPress={handleKeyPress}
           placeholder="Enter a new task..."
         />
-        <AddButton type="button" onClick={handleAddTask} disabled={!inputValue.trim()}>
+        <AddButton
+          type="button"
+          onClick={handleAddTask}
+          disabled={!inputValue.trim()}
+        >
           Add
         </AddButton>
       </InputContainer>
@@ -90,15 +94,18 @@ const TodoList = () => {
       ) : (
         <>
           <TaskList>
-            {tasks.map(task => (
+            {tasks.map((task) => (
               <TaskItem key={task.id}>
                 <TaskText
-                  completed={task.completed}
+                  $isCompleted={task.completed}
                   onClick={() => handleToggleCompleted(task.id)}
                 >
                   {task.text}
                 </TaskText>
-                <RemoveButton type="button" onClick={() => handleRemoveTask(task.id)}>
+                <RemoveButton
+                  type="button"
+                  onClick={() => handleRemoveTask(task.id)}
+                >
                   Remove
                 </RemoveButton>
               </TaskItem>
@@ -111,6 +118,6 @@ const TodoList = () => {
       )}
     </Container>
   );
-}
+};
 
 export default TodoList;

@@ -113,8 +113,9 @@ export const TaskText = styled.h2`
   color: #e6f1ff;
   cursor: pointer;
   flex: 1;
-  text-decoration: ${props => props.completed ? 'line-through' : 'none'};
-  color: ${props => props.completed ? '#8892b0' : '#e6f1ff'};
+  text-decoration: ${props => props.$isCompleted ? 'line-through' : 'none'};
+  opacity: ${props => props.$isCompleted ? 0.6 : 1};
+  color: ${props => props.$isCompleted ? '#8892b0' : '#e6f1ff'};
   transition: color 0.2s ease;
   backface-visibility: hidden;
 
