@@ -1,9 +1,8 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { addAction, removeAction, toggleAction } from '../../redux/actions';
-import { addTask, removeTask, toggleTask } from "../../redux/slice";
+import { addTask, deleteTask, toggleTask } from "../../redux/operations";
 import { getAllTasks } from "../../redux/selectors";
+import { fetchTasks } from "../../redux/operations";
 
 import {
   Container,
@@ -20,34 +19,23 @@ import {
 } from "./styles/TodoList.styled";
 
 const TodoList = () => {
-  const [inputValue, setInputValue] = useState("");
-  const tasks = useSelector(getAllTasks);
   const dispatch = useDispatch();
+  const [inputValue, setInputValue] = useState("");
+  const { tasks, isLoading, error } = useSelector(getAllTasks);
 
-  // const handleAddTask = () => {
-  //   if (inputValue.trim()) {
-  //     dispatch(addAction(inputValue));
-  //     setInputValue("");
-  //   }
-  // }
-
-  // const handleKeyPress = (e) => {
-  //   if (e.key === 'Enter') {
-  //     handleAddTask();
-  //   }
-  // };
-
-  // const handleToggleCompleted = (taskId) => {
-  //   dispatch(toggleAction(taskId));
-  // };
-
-  // const handleRemoveTask = (taskId) => {
-  //   dispatch(removeAction(taskId));
-  // };
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, [dispatch]);
 
   const handleAddTask = () => {
     if (inputValue.trim()) {
-      dispatch(addTask(inputValue));
+      const newTask = {
+        id: Date.now(),
+        text: inputValue,
+        completed: false,
+      };
+
+      dispatch(addTask(newTask));
       setInputValue("");
     }
   };
@@ -58,15 +46,15 @@ const TodoList = () => {
     }
   };
 
-  const handleToggleCompleted = (taskId) => {
-    dispatch(toggleTask(taskId));
+  const handleToggleCompleted = (task) => {
+    dispatch(toggleTask(task));
   };
 
-  const handleRemoveTask = (taskId) => {
-    dispatch(removeTask(taskId));
+  const handleDeleteTask = (taskId) => {
+    dispatch(deleteTask(taskId));
   };
 
-  const completedCount = tasks.filter((task) => task.completed).length;
+  const completedCount = tasks?.filter((task) => task.completed).length;
 
   return (
     <Container>
@@ -94,17 +82,19 @@ const TodoList = () => {
       ) : (
         <>
           <TaskList>
+            {isLoading}
+            {error}
             {tasks.map((task) => (
-              <TaskItem key={task.id}>
+              <TaskItem key={task.id} $isCompleted={task.completed}>
                 <TaskText
                   $isCompleted={task.completed}
-                  onClick={() => handleToggleCompleted(task.id)}
+                  onClick={() => handleToggleCompleted(task)}
                 >
                   {task.text}
                 </TaskText>
                 <RemoveButton
                   type="button"
-                  onClick={() => handleRemoveTask(task.id)}
+                  onClick={() => handleDeleteTask(task.id)}
                 >
                   Remove
                 </RemoveButton>

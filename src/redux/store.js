@@ -4,9 +4,8 @@ import storage from "redux-persist/lib/storage";
 import { tasksReducer } from "./slice";
 
 const persistConfig = {
-  key: "root",
+  key: "tasks",
   storage,
-  whitelist: ["tasks"],
 };
 
 const persistedReducer = persistReducer(persistConfig, tasksReducer);

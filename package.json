@@ -1,7 +1,7 @@
 {
-  "name": "redux-todolist",
+  "name": "todolist-async",
   "version": "0.1.0",
-  "homepage": "https://pan-artur.github.io/redux-todolist",
+  "homepage": "https://pan-artur.github.io/todolist-async",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.12.2",
     "gh-pages": "^6.3.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

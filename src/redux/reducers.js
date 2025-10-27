@@ -13,6 +13,7 @@ export const reducer = createReducer(initialState, (builder) => {
         text: action.payload,
         completed: false,
       };
+      
       return {
         ...state,
         tasks: [...state.tasks, newTask],

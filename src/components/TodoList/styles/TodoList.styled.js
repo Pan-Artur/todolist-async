@@ -91,8 +91,8 @@ export const TaskItem = styled.li`
   margin-bottom: 15px;
   background: linear-gradient(135deg, #112240 0%, #1d3b53 100%);
   border-radius: 10px;
-  border-left: 4px solid #64ffda;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 4px solid ${props => props.$isCompleted ? '#8892b0' : '#64ffda'};
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-left-color 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transform: translateZ(0);
   will-change: transform;
